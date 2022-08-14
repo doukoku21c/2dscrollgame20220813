@@ -45,8 +45,8 @@ public class PlayerMove : MonoBehaviour
     {
         // 플레이어 점프
 
-       // if (Input.GetButtonDown("Jump") || jump_Down || jump_Down && !anim.GetBool("isJumping"))
-        if (Input.GetButtonDown("Jump") || jump_Down && !anim.GetBool("isJumping"))
+       // if (Input.GetButtonDown("Jump") || 두개는 or | 한개는 and and로해서 키보드 마우스 성공
+        if (Input.GetButtonDown("Jump") | jump_Down && !anim.GetBool("isJumping"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("isJumping", true);
@@ -169,6 +169,7 @@ public class PlayerMove : MonoBehaviour
     {
         // health down
         gameManager.HealthDown();
+        PlaySound("DAMAGED");
         gameObject.layer = 11;
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
@@ -186,6 +187,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDie()
     {
+        PlaySound("DIE");
         //Sprite Alpha
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         //Sprite Flip Y
@@ -195,7 +197,7 @@ public class PlayerMove : MonoBehaviour
         //Die Effect Jump
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
         //안뒤집히게
-        PlaySound("DIE");
+
     }
     public void VelocityZero()
     {
